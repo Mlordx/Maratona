@@ -1,0 +1,5 @@
+Nossa ideia foi , basicamente, a seguinte: 
+
+Pegamos as arestas do grafos e as ordenamos em ordem decrescente, a seguir, vamos adicionando cada aresta no grafo(com o uso da UFUnion),até que chegamos numa árvore de custo máximo que liga A à B(usando o UFFind), a última aresta adicionada será a aresta que responde o problema.
+
+Por ser O(n²), esse algoritmo acabou falhando nos últimos 2 casos de teste. Sendo necessário a implementação do algoritmo de LCA(Longest Common Ancestor) para chegar na resposta ótima.
