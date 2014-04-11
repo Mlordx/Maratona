@@ -1,3 +1,5 @@
+Link: http://www.urionlinejudge.com.br/judge/pt/problems/view/1476
+
 Nossa ideia foi , basicamente, a seguinte: 
 
 Pegamos as arestas do grafos e as ordenamos em ordem decrescente, a seguir, vamos adicionando cada aresta no grafo(com o uso da UFUnion),até que chegamos numa árvore de custo máximo que liga A à B(usando o UFFind), a última aresta adicionada será a aresta que responde o problema.
