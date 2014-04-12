@@ -1,9 +1,8 @@
 #include <iostream>
-#include <vector>
 #include <cstdlib>
 #include <cmath>
 #include <list>
-#include <cstdio>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,7 +12,7 @@ using namespace std;
 int id[MAXV], tam[MAXV];
 
 int u[MAXV], v[MAXV], peso[MAXV],pai[MAXV][MAXV],nivel[MAXV],checado[MAXV];
-int x[MAXV], y[MAXV], custo[MAXV];
+int x[MAXV], y[MAXV], custo[MAXV],custoPai[MAXV];
 
 list<int> adj[MAXV];
 list<int>::iterator it;
@@ -49,16 +48,16 @@ int tradutor[MAXV];
 
 /******************************************************************************************/
 /***************Inicialização da LCA*******************************************************/
-void dfsR(int n,int V,int Ant){
+void dfsR(int n,int V,int Ant,int p){
   checado[V] = 1;
   for(int i = 0; i < n; i++)
-    //    for(it = adj[V].begin(); it != adj[V].end(); it++){
+
     while(!adj[V].empty()){
       it = adj[V].begin();
-      if(checado[*it] == -1){ dfsR(n,*it,V); }
+      if(checado[*it] == -1){ dfsR(n,*it,V,p+1); }
       else {
 	pai[V][0] = Ant; //o pai de alguem é o anterior à ele, sendo o anterior da raiz ela mesma
-	if(V!= Ant)nivel[V] = nivel[Ant] + 1; // o nivel de alguem é o nivel do seu pai + 1
+	nivel[V] = p;
 	for(int k = 1; k < LOG(n); k++)
 	  pai[V][k] = pai[pai[V][k-1]][k-1];
 	adj[V].pop_front();
@@ -69,18 +68,30 @@ void dfsR(int n,int V,int Ant){
 
 void LCAinit(int n){
   for(int i = 0; i < n; i++) checado[i] = -1;
-  for(int i = 0; i < n; i++) nivel[i] = 0;
-  nivel[0] = 1;
-  dfsR(n,0,0);
+  for(int i = 1; i < n; i++) nivel[i] = 0;
+  dfsR(n,0,0,1);
 }
 /******************************************************************************************/
 /******************************************************************************************/
 
 int LCA(int n,int a, int b){
   int tmp;
-  int A = tradutor[a];
-  int B = tradutor[b];
-  //  if(nivel[a] < nivel[b])
+
+  if(nivel[a] < nivel[b]){
+    tmp = a;
+    a = b;
+    b = tmp;
+  }
+
+  for(int i = LOG(nivel[a]); i >= 0; i--)
+    if(nivel[a] - (1 << i)/*2^i*/ >= nivel[b])
+      a = pai[a][i];
+
+  for(int i = LOG(nivel[a]); i >= 0; i--)
+    if(pai[a][i] != pai[b][i])
+      a = pai[a][i], b = pai[b][i];
+
+  return pai[a][0];
 }
 
 /******************************************************************************************/
@@ -108,6 +119,7 @@ int main(){
     for(int j = 0; j < M; j++){ // for que forma a árvore geradora de custo máximo
       int U = u[tradutor[j]];
       int V = v[tradutor[j]];
+
       if(UFFind(U) != UFFind(V)){ 
 
 	UFUnion(U,V); 
@@ -117,23 +129,19 @@ int main(){
 	y[tradutor[j]] = V;
 	custo[tradutor[j]] = peso[tradutor[j]];
 
-
-
 	adj[U].push_back(V); // u é adjacente a v
 	adj[V].push_back(U); // v é adjacente a u
       }
     }
-
+  
     LCAinit(N);
-
-    for(int i = 0; i < N; i++)
-      for(int j = 0; j < LOG(N); j++)
-	cout <<"i= " << i << " j=" << j << " pai=" <<  pai[i][j] << "nivel=" << nivel[i] << endl;
 
     for(int i = 0; i < S; i++){
       cin >> ini >> fim;
       ini--;
-      fim--;     
+      fim--;   
+
+      cout << LCA(N,ini,fim) << endl;  
     }  
   }
 
