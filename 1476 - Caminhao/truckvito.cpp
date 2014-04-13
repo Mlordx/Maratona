@@ -140,7 +140,7 @@ int LCA(int u, int v)
 
   for(int i = lg; i >=0; i--)
     if(prnt[v][i] != -1 &&  prnt[v][i] != prnt[u][i])
-      {v = prnt[v][i]; u = prnt[u][i]; maxPeso = minHue(maxPeso,minHue(pesMax[v][i], pesMax[u][i]));}
+      { maxPeso = minHue(maxPeso,minHue(pesMax[v][i], pesMax[u][i])); v = prnt[v][i]; u = prnt[u][i];} //tinha que pegar maxPeso ANTES de mudar v e u, cone.
 
 
    
