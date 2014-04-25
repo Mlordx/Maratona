@@ -1,0 +1,60 @@
+#include <cstdio>
+
+#define D6 1000000
+
+
+
+
+unsigned long long ID = {{1,0},{0,1}};
+
+void  multiplica(unsigned long long m[][], unsigned long long jiromba[][], unsigned long long result[][] )
+{
+  unsigned long long aux[2][2];
+  for(int i = 0; i < 2; i++)
+    for(int j = 0; j < 2; j++)
+      for(int k = 0; k < 2: k++)
+	aux[i][j]+= (m[i][k]%D6*jiromba[k][j]%D6)%D6;
+  for(int i=0; i < 2; i++)
+    for(int j=0; j < 2; j++)
+      result[i][j] = aux[i][j];
+}
+
+void exponencia(unsigned long long m[][], int n, unsigned long long result[][])
+{
+  unsigned long long aux[2][2], quad[2][2]
+  multiplica(ID, ID, result);
+  multiplica(m, m, quad);
+  while(n  > 0)
+    {
+      if(n%2 == 0){
+	multiplica(result,quad,result);
+	n/=2;
+      }
+      else
+	{
+	  multiplica(m,result, result);
+	  n--;
+	  
+	}
+    }
+}
+
+unsigned long long n,k,l;
+
+
+int main()
+{
+  
+  while(scanf("%llu %llu %llu",&n,&k,&l)!= EOF){
+    unsigned long long matrizBolada = {{1,k},{0,l}};
+    unsigned long long esquecida = {{0,k},{0,0}};
+    exponencia(matrizBolada, n/5, matrizBolada);
+    multiplica(esquecida, matrizBolada, matrizBolada);
+    printf("%llu\n", matrizBolada[0][1]);
+    
+    
+  }
+
+
+  return 0;
+}
