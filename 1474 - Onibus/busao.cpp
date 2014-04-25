@@ -51,13 +51,13 @@ int main()
   while(scanf("%llu %llu %llu",&n,&k,&l)!= EOF){
     unsigned long long aux[2][2]= {{1,0},{0,1}};
     unsigned long long aux2[2][2] = {{0}};
-    unsigned long long matrizBolada[2][2] = {{0,l},{1,k}};
-    unsigned long long esquecida[2][2] = {{1,k},{0,0}};
-    potencia(matrizBolada, n/5, aux);
+    unsigned long long matrizBolada[2][2] = {{0,l%D6},{1,k%D6}};
+    unsigned long long esquecida[2][2] = {{1,k%D6},{0,0}};
+    unsigned long long N = n/5;
+
+    potencia(matrizBolada, N , aux);
     multiplica(esquecida, aux);
     printf("%06llu\n", esquecida[0][0]);
-    
-    
   }
   return 0;
 }
