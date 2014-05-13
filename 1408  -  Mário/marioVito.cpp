@@ -1,51 +1,50 @@
 #include <cstdio>
+#include <cstdlib>
 
+#include <vector>
 
 #define MAXN 100004
 #define MAXV 1000000000
 
+using namespace std;
+
+vector<int> v(MAXN);
 
 
 int main()
 {
 	int N,L;
-	int vetor[MAXV];
 
 
-	int temp;
-	int max = -1;
-	int minZ, zTemp;
-	int i,j;
-
-	for(i = 0; i < MAXV; i++) vetor[i] = 0;
-
-	while(scanf("%d %d\n", &N, &L)!= EOF && N != L && N != 0)
+	while(scanf("%d %d\n",&N, &L) != EOF & !(N == 0 && L == 0))
 	{
-		max = -1;
-		for(i = 0; i < L; i++)
+		v.resize(L);
+		for(int i = 0; i < L; i++) 
+			scanf("%d", &v[i]);
+
+		vector<int>::iterator bg = v.begin();
+		vector<int>::iterator end = bg + L;
+		int vasTemp, vasMax = 0;
+
+		//vector<int>::iterator it;
+
+		for(int i = 0; i < L; i++)
 		{
-			int temp2;
-			scanf("%d", &temp);
-			vetor[temp2 = temp-1] = 1;
-			if(temp2 > max) max = temp2;
+			int bla = v[i]+N-1;
+			vector<int>::iterator lb = lower_bound(v.begin(),end,bla);
+
+			vasTemp = distance(v.begin(),lb) - i; // Relaxa q eu manjo
+			printf("LB: %d || v[i]: %d || dist: %d\n",lb , v[i], vasTemp);
+			if(vasTemp > vasMax)
+				vasMax = vasTemp;
 		}
 
-		
-		i = 0;
-		for(j = 0; j < N; j++)
-			if(!vetor[i]) minZ++;
-		zTemp = minZ;
-		for(i = 1; j < max; i++, j++)
-		{
-			if(!vetor[i-1]) zTemp--;
-			if(!vetor[j]) zTemp++;
-			if(zTemp <  minZ) minZ = zTemp;
-		}
-
-		printf("%d\n", zTemp);
-		for(i = 0; i < max; i++) vetor[i] = 0;
+		printf("%d\n", N - vasMax);
 
 	}
+
+
+
 
 	return 0;
 }
