@@ -6,6 +6,8 @@ Sites com Problemas:
 
 - http://www.spoj.com
 - http://www.urionlinejudge.edu.br
+- http://acm.timus.ru/
+- https://uva.onlinejudge.org/
 
 Links Interessantes:
 
@@ -17,3 +19,4 @@ Links Interessantes:
 - https://www.dropbox.com/s/0730jddhqzihnwr/solucoes_regional_2013.pdf
 - https://courses.csail.mit.edu/iap/interview/materials.php
 - http://acm.cs.buap.mx/downloads/Programming_Challenges.pdf
+
