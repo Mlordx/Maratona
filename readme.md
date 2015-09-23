@@ -9,7 +9,7 @@ Sites com Problemas:
 
 Links Interessantes:
 
-- http://www.topcoder.com/tc?d1=tutorials&d2=alg_index&module=Static
+- https://www.topcoder.com/community/data-science/data-science-tutorials/
 - http://crbonilha.blogspot.com.br
 - http://marathoncode.blogspot.com.br
 - http://www.crbonilha.com
