@@ -1,3 +1,11 @@
+/*
+Nome: Mateus Barros Rodrigues
+NUSP: 7991037
+MAC0327 - 2o Sem 2015
+3a Aval
+Problema PXX - 174A - Cows and Primitive Roots
+*/
+
 #include <bits/stdc++.h>
 
 using namespace std;
